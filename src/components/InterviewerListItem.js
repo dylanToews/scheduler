@@ -7,7 +7,6 @@ export default function InterviewerListItem(props) {
   let interviewerClass = classNames("interviewers__item", {
     "interviewers__item--selected" : props.selected
   })
-
   const formatName = function(props) {
     if (props.selected){
       return props.name
