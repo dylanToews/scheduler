@@ -1,24 +1,13 @@
-const matchIds = (appointments, ids) => {
-
-  const matched = ids.map(id => appointments[id]);
-
-  return matched;
-};
-
 export function getAppointmentsForDay(state, day) {
+  const results = [];
+  const dayObj = state.days.find(d => d.name === day);
 
-  //console.log(state.days)
+  if (!dayObj) { return []; }
 
-  if (state.days.length > 0 && state.days.filter(user => user.name === day)[0]) {
-
-    const appointmentArray = state.days.filter(user => user.name === day)[0];
-
-    const filterAppointments = appointmentArray.appointments;
-
-    return matchIds(state.appointments, filterAppointments);
+  for (const id of dayObj.appointments) {
+    const appointment = state.appointments[id];
+    results.push(appointment);
   }
-
-  return [];
-
+  return results;
 }
 
