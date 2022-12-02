@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import DayList from "./DayList";
-import "../styles/Application.scss";
-import Appointment from "components/Appointment";
 import axios from "axios";
-import { getAppointmentsForDay } from "helpers/selectors";
+import DayList from "./DayList";
+import Appointment from "components/Appointment";
+import "../styles/Application.scss";
+import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+
 
 
 
@@ -11,7 +12,8 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewer: {}
   });
 
 
@@ -19,13 +21,16 @@ export default function Application(props) {
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
-      axios.get("/api/appointments")
+      axios.get("/api/appointments"),
+      axios.get("/api/interviewers")
     ])
       .then((all) => {
         const days = all[0].data;
         const appointments = all[1].data;
+        const interviewers = all[2].data
+        console.log(interviewers)
 
-        setState(prev => ({ ...prev, days, appointments }));
+        setState(prev => ({ ...prev, days, appointments, interviewers }));
       });
   }, []);
 
@@ -33,6 +38,8 @@ export default function Application(props) {
   const setDay = day => setState({ ...state, day });
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  
+  const interview = getInterview(state, appointment.interview)
 
   const list = dailyAppointments.map((appointment) =>
     <Appointment

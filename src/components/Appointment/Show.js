@@ -2,9 +2,6 @@ import React from "react";
 
 export default function Show(props) {
 
-
-
-
   /*The <Show> component should accept the following props:
 
 student:String eg. "Lydia Miller-Jones"
@@ -21,7 +18,7 @@ onDelete:Function to be called when the user clicks the Delete button
         <h2 className="text--regular">{props.student}</h2>
         <section className="interviewer">
           <h4 className="text--light">Interviewer</h4>
-          <h3 className="text--regular">Sylvia Slitherin</h3>
+          <h3 className="text--regular">Interviewer Name</h3>
         </section>
       </section>
       <section className="appointment__card-right">
