@@ -42,6 +42,7 @@ export default function Application(props) {
 
   const list = dailyAppointments.map((appointment) =>
     <Appointment
+      interviewers={state.interviewers}
       key={appointment.id}
       {...appointment} />);
 

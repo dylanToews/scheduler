@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
+import Form from "./Form";
 import useVisualMode from "hooks/useVisualMode";
 
 import "./styles.scss";
@@ -23,7 +24,13 @@ export default function Appointment(props) {
       <Header time={props.time} />
 
       {mode === EMPTY &&
-        <Empty onAdd={() => console.log("Clicked onAdd")} />}
+        <Empty 
+        onAdd={() => 
+         transition(CREATE)
+          // console.log("Clicked odsanAdd")
+          } 
+          
+          />}
 
       {mode === SHOW && (
         <Show
@@ -31,6 +38,15 @@ export default function Appointment(props) {
           interviewer={props.interview.interviewer}
         />
       )}
+      {mode === CREATE &&
+      <Form
+
+      interviewers={props.interviewers}
+      onCancel={() => 
+        transition(EMPTY)}
+      />
+        
+      }
     </article>
   );
 }
