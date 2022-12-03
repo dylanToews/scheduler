@@ -28,7 +28,6 @@ export default function Application(props) {
         const days = all[0].data;
         const appointments = all[1].data;
         const interviewers = all[2].data
-        console.log(interviewers)
 
         setState(prev => ({ ...prev, days, appointments, interviewers }));
       });
@@ -38,8 +37,8 @@ export default function Application(props) {
   const setDay = day => setState({ ...state, day });
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-  
-  const interview = getInterview(state, appointment.interview)
+
+  // const interview = getInterview(state, appointment.interview)
 
   const list = dailyAppointments.map((appointment) =>
     <Appointment
