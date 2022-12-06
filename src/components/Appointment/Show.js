@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState} from "react";
 
 export default function Show(props) {
+
+  const [student, setStudent] = useState(props.student || "");
+  const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
   /*The <Show> component should accept the following props:
 
@@ -10,7 +13,11 @@ onEdit:Function to be called when the user clicks the Edit button
 onDelete:Function to be called when the user clicks the Delete button
 
 */
+// console.log("Show props", props)
 
+// console.log("Show student", student)
+
+// console.log("Show interviewer", interviewer)
 
   return (
     <main className="appointment__card appointment__card--show">
@@ -33,7 +40,7 @@ onDelete:Function to be called when the user clicks the Delete button
             className="appointment__actions-button"
             src="images/trash.png"
             alt="Delete"
-            onClick={props.onDelete}
+            onClick={() => props.onDelete(student, interviewer)}
           />
         </section>
       </section>

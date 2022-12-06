@@ -36,6 +36,12 @@ export default function Form(props) {
     props.onCancel();
   };
 
+  console.log("form props", props)
+
+  console.log("form student", student)
+
+  console.log("form interviewer", interviewer)
+
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">

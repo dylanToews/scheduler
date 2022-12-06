@@ -25,12 +25,8 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-    setState({
-      ...state,
-      appointments
-    });
-    axios
-      .put(`/api/appointments/${id}`, {interview})
+    return axios
+      .put(`/api/appointments/${id}`, { interview })
       .then((res) => {
         setState({
           ...state,
@@ -38,6 +34,31 @@ export default function Application(props) {
         });
       });
   }
+
+
+  function deleteInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    return axios
+      .delete(`/api/appointments/${id}`, { interview })
+      .then((res) => {
+        console.log("res", res);
+        setState({
+          ...state,
+          appointments
+        });
+      });
+  }
+
+
+
+
 
 
   useEffect(() => {
@@ -57,21 +78,16 @@ export default function Application(props) {
 
 
   const setDay = day => setState({ ...state, day });
-
-  // const interviews = getInterview(state, state.interview)
-
-  
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-
-  // const interview = getInterview(state, appointment.interview)
 
   const list = dailyAppointments.map((appointment) =>
     <Appointment
       interviewers={state.interviewers}
       key={appointment.id}
       {...appointment}
-
-      bookInterview={bookInterview} />);
+      //interviewer={state.interviewer}
+      bookInterview={bookInterview}
+      deleteInterview={deleteInterview} />);
 
   return (
     <main className="layout">
