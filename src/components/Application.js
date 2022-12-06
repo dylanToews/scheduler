@@ -7,15 +7,37 @@ import { getAppointmentsForDay, getInterview } from "helpers/selectors";
 
 
 
-
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
-    interviewer: {}
+    interviewer: {},
   });
 
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    setState({
+      ...state,
+      appointments
+    });
+    axios
+      .put(`/api/appointments/${id}`, {interview})
+      .then((res) => {
+        setState({
+          ...state,
+          appointments
+        });
+      });
+  }
 
 
   useEffect(() => {
@@ -27,7 +49,7 @@ export default function Application(props) {
       .then((all) => {
         const days = all[0].data;
         const appointments = all[1].data;
-        const interviewers = all[2].data
+        const interviewers = all[2].data;
 
         setState(prev => ({ ...prev, days, appointments, interviewers }));
       });
@@ -36,6 +58,9 @@ export default function Application(props) {
 
   const setDay = day => setState({ ...state, day });
 
+  // const interviews = getInterview(state, state.interview)
+
+  
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   // const interview = getInterview(state, appointment.interview)
@@ -44,8 +69,9 @@ export default function Application(props) {
     <Appointment
       interviewers={state.interviewers}
       key={appointment.id}
-      {...appointment} />);
+      {...appointment}
 
+      bookInterview={bookInterview} />);
 
   return (
     <main className="layout">
