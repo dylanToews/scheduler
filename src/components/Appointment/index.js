@@ -18,8 +18,8 @@ const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
-const ERROR_SAVE = "ERROR_SAVE"
-const ERROR_DELETE = "ERROR_DELETE"
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 
 
@@ -55,8 +55,12 @@ export default function Appointment(props) {
   }
 
   return (
-    <article className="appointment">
+    <article
+      className="appointment"
+      data-testid="appointment">
+
       <Header time={props.time} />
+
       {mode === EMPTY &&
         <Empty
           onAdd={() =>
@@ -81,11 +85,12 @@ export default function Appointment(props) {
           message={"Saving"}
         />
       )}
-        {mode === ERROR_SAVE && (
+
+      {mode === ERROR_SAVE && (
         <Error
           message={"Could not save appointment"}
-          onClose={()=>
-          transition(EMPTY, true)}
+          onClose={() =>
+            transition(EMPTY, true)}
         />
       )}
 
@@ -98,8 +103,8 @@ export default function Appointment(props) {
       {mode === ERROR_DELETE && (
         <Error
           message={"Could not delete appointment"}
-          onClose={()=>
-          transition(SHOW, true)}
+          onClose={() =>
+            transition(SHOW, true)}
         />
       )}
 
@@ -111,7 +116,6 @@ export default function Appointment(props) {
             back()}
         />
       }
-
 
       {mode === EDIT &&
         <Form
