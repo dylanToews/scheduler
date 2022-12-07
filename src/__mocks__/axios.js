@@ -1,3 +1,5 @@
+
+
 const fixtures = {
   days: [
     {
@@ -56,7 +58,7 @@ const fixtures = {
 
 export default {
   defaults: { baseURL: "" },
-  
+
   delete: jest.fn(url => {
     return Promise.resolve({
       status: 204,
