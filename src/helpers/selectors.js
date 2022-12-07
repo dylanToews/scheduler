@@ -31,11 +31,11 @@ export function getInterview(state, interview) {
 
   const interviewId = interview.interviewer;
   const interviewObj = state.interviewers[interviewId];
-  const student = state.appointments[interviewId].interview;
 
   const results = {
     student: interview.student,
-    interviewer: interviewObj
+    interviewer: interviewObj,
   };
+
   return results;
 }
