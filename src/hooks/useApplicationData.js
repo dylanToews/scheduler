@@ -11,18 +11,19 @@ export default function useApplicationData(initial) {
   });
 
 
-  function updateSpots(increment) {
+  function updateSpots(increment, edit) {
     let index;
+
     const day = state.days.find((day, i) => {
       if (day.name === state.day) {
         index = i;
         return day;
       }
     });
-    if (increment) {
+    if (increment && !edit) {
       day.spots++;
     }
-    if (!increment) {
+    if (!increment && !edit) {
       day.spots--;
     }
 
@@ -32,7 +33,7 @@ export default function useApplicationData(initial) {
   }
 
 
-  function bookInterview(id, interview) {
+  function bookInterview(id, interview, edit) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -48,7 +49,7 @@ export default function useApplicationData(initial) {
         setState({
           ...state,
           appointments,
-          days: updateSpots(false)
+          days: updateSpots(false, edit)
         });
       });
   }
