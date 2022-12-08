@@ -21,9 +21,11 @@ import {
 import Application from "components/Application";
 import { debug } from "request";
 
-afterEach(cleanup);
+
 
 describe("Application", () => {
+  afterEach(cleanup);
+
   it("defaults to Monday and changes the schedule when a new day is selected", async () => {
     const { getByText } = render(<Application />);
 
@@ -72,7 +74,10 @@ describe("Application", () => {
     
     const appointments = getAllByTestId(container, "appointment");
     const appointment = appointments[1];
-    
+    const priorDay = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+    );
+    console.log("priorDay", prettyDOM(priorDay))
     fireEvent.click(getByAltText(appointment, "Delete"));
 
     expect(
@@ -88,8 +93,9 @@ describe("Application", () => {
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
+    
     expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
-  });
+  })
 
 
 
@@ -112,7 +118,7 @@ describe("Application", () => {
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
     fireEvent.click(getByText(appointment, "Save"));
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
-    console.log("day", prettyDOM(day))
+    // console.log("day", prettyDOM(day))
     
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
  
@@ -124,7 +130,7 @@ describe("Application", () => {
 
 
 
-    it.only("shows the save error when failing to save an appointment", async () => {
+    it("shows the save error when failing to save an appointment", async () => {
       axios.put.mockRejectedValueOnce()
       const { container, debug } = render(<Application />);
 
@@ -152,7 +158,7 @@ describe("Application", () => {
 
 
 
-    it.only("shows the delete error when failing to delete an existing appointment", async () => {
+    it("shows the delete error when failing to delete an existing appointment", async () => {
       axios.delete.mockRejectedValueOnce()
       const { container, debug } = render(<Application />);
       await waitForElement(() => 

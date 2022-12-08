@@ -11,29 +11,52 @@ export default function useApplicationData(initial) {
   });
 
 
-  function updateSpots(increment, edit) {
+  function updateSpots(increment) {
     let index;
+    
+    //Makes a deep copy of state.days
+    const days = JSON.parse(JSON.stringify(state.days))
 
-    const day = state.days.find((day, i) => {
+    const day = days.find((day, i) => {
       if (day.name === state.day) {
         index = i;
         return day;
       }
     });
-    if (increment && !edit) {
-      day.spots++;
-    }
-    if (!increment && !edit) {
-      day.spots--;
-    }
 
-    const days = state.days;
-    days.splice(index, 1, day);
-    return days;
+    const dayCopy = {...day}
+
+    if (increment) {
+      dayCopy.spots++;
+    }
+    if (!increment) {
+      dayCopy.spots--;
+    }
+  
+    days.splice(index, 1, dayCopy);
+
+
+
+    return days
   }
 
 
-  function bookInterview(id, interview, edit) {
+
+
+// function NEWUpdateSpots(state, appointments, id) {
+// console.log("state", state)
+// console.log("appointment", appointments)
+// console.log("id", id)
+
+// const updatedDays = [...state.days]
+
+
+// console.log("updatedDays", updatedDays)
+// }
+
+
+
+  function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -43,13 +66,16 @@ export default function useApplicationData(initial) {
       [id]: appointment
     };
 
+    //updateSpots(false)
+
+    //NEWUpdateSpots(state, state.appointments, id)
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then((res) => {
         setState({
           ...state,
           appointments,
-          days: updateSpots(false, edit)
+          days: updateSpots(false)
         });
       });
   }
@@ -64,6 +90,9 @@ export default function useApplicationData(initial) {
       ...state.appointments,
       [id]: appointment
     };
+
+    //updateSpots(true)
+
     return axios
       .delete(`/api/appointments/${id}`, { interview })
       .then((res) => {
