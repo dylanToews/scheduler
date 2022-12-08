@@ -15,7 +15,6 @@ export default function InterviewerList(props) {
         selected={interviewer.id === props.value}        
         setInterviewer={() => props.onChange(interviewer.id)}
       />
-
     );
   });
 
@@ -24,9 +23,7 @@ export default function InterviewerList(props) {
       <h4 className="interviewers__header text--light">Interviewer</h4>
       <ul className="interviewers__list">{interviewerList}</ul>
     </section>
-
   );
-
 }
 
 InterviewerList.propTypes = {

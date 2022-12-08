@@ -1,10 +1,5 @@
 import React from "react";
 
-/*The <Error> component should accept the following props:
-
-message:String eg. "Could not delete appointment."
-onClose:Function to be called when the user clicks the Close button*/
-
 
 export default function Error(props) {
 
@@ -21,6 +16,5 @@ export default function Error(props) {
         onClick={props.onClose}
       />
     </main>
-
   );
 }

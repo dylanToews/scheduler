@@ -11,6 +11,9 @@ export default function useApplicationData(initial) {
   });
 
 
+
+  //Function to update spots without mutating state
+  
   function updateSpots(increment) {
     let index;
 
@@ -34,6 +37,7 @@ export default function useApplicationData(initial) {
     return days;
   }
 
+  //Function to determine if editing or creating appointment. Update spots called accordingly
 
   function isEdit(edit) {
     if (edit === "true") {

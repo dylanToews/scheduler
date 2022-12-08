@@ -28,7 +28,6 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-
   function save(name, interviewer, edit) {
     const interview = {
       student: name,
@@ -138,7 +137,6 @@ export default function Appointment(props) {
           edit={"false"}
         />
       }
-
     </article>
   );
 }
