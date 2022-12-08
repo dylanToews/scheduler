@@ -13,10 +13,9 @@ export default function useApplicationData(initial) {
 
   function updateSpots(increment) {
     let index;
-    
-    //Makes a deep copy of state.days
-    const days = JSON.parse(JSON.stringify(state.days))
 
+    //Makes a deep copy of state.days
+    const days = JSON.parse(JSON.stringify(state.days));
     const day = days.find((day, i) => {
       if (day.name === state.day) {
         index = i;
@@ -24,39 +23,29 @@ export default function useApplicationData(initial) {
       }
     });
 
-    const dayCopy = {...day}
-
+    const dayCopy = { ...day };
     if (increment) {
       dayCopy.spots++;
     }
     if (!increment) {
       dayCopy.spots--;
     }
-  
     days.splice(index, 1, dayCopy);
-
-
-
-    return days
+    return days;
   }
 
 
+  function isEdit(edit) {
+    if (edit === "true") {
+      return state.days;
+    }
+    if (edit === "false") {
+      return updateSpots(false);
+    }
+  }
 
 
-// function NEWUpdateSpots(state, appointments, id) {
-// console.log("state", state)
-// console.log("appointment", appointments)
-// console.log("id", id)
-
-// const updatedDays = [...state.days]
-
-
-// console.log("updatedDays", updatedDays)
-// }
-
-
-
-  function bookInterview(id, interview) {
+  function bookInterview(id, interview, edit) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -66,16 +55,13 @@ export default function useApplicationData(initial) {
       [id]: appointment
     };
 
-    //updateSpots(false)
-
-    //NEWUpdateSpots(state, state.appointments, id)
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then((res) => {
         setState({
           ...state,
           appointments,
-          days: updateSpots(false)
+          days: isEdit(edit)
         });
       });
   }
@@ -91,8 +77,6 @@ export default function useApplicationData(initial) {
       [id]: appointment
     };
 
-    //updateSpots(true)
-
     return axios
       .delete(`/api/appointments/${id}`, { interview })
       .then((res) => {
@@ -100,7 +84,6 @@ export default function useApplicationData(initial) {
           ...state,
           appointments,
           days: updateSpots(true)
-
         });
       });
   }
@@ -123,8 +106,6 @@ export default function useApplicationData(initial) {
 
 
   const setDay = day => setState({ ...state, day });
-
-
 
   return { state, setDay, bookInterview, deleteInterview };
 }

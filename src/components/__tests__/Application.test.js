@@ -74,10 +74,7 @@ describe("Application", () => {
     
     const appointments = getAllByTestId(container, "appointment");
     const appointment = appointments[1];
-    const priorDay = getAllByTestId(container, "day").find(day =>
-      queryByText(day, "Monday")
-    );
-    console.log("priorDay", prettyDOM(priorDay))
+
     fireEvent.click(getByAltText(appointment, "Delete"));
 
     expect(

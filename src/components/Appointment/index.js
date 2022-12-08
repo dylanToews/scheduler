@@ -29,14 +29,14 @@ export default function Appointment(props) {
   );
 
 
-  function save(name, interviewer) {
+  function save(name, interviewer, edit) {
     const interview = {
       student: name,
       interviewer
     };
     transition(SAVING, true);
     props
-      .bookInterview(props.id, interview)
+      .bookInterview(props.id, interview, edit)
       .then(() => transition(SHOW))
       .catch(error => transition(ERROR_SAVE, true));
   }
@@ -125,7 +125,7 @@ export default function Appointment(props) {
           onCancel={() =>
             transition(EMPTY)}
           onSave={save}
-          // edit={"true"}
+          edit={"true"}
         />
       }
 
@@ -135,7 +135,7 @@ export default function Appointment(props) {
           onCancel={() =>
             transition(EMPTY)}
           onSave={save}
-          // edit={"false"}
+          edit={"false"}
         />
       }
 
