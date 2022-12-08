@@ -16,7 +16,9 @@ The user is able to view, create, edit and delete appointments. The number of av
 ## Screenshots
 
 ![Index and initial rendering](https://github.com/dylanToews/scheduler/blob/master/docs/index-page.png?raw=true)
+
 ![Shows user booking appointment](https://github.com/dylanToews/scheduler/blob/master/docs/enter-student-name.jpg.png?raw=true)
+
 ![Confirmation of delete appointment prior to implementation](https://github.com/dylanToews/scheduler/blob/master/docs/confirm-delete.png?raw=true)
 
 ## Setup
