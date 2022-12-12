@@ -40,6 +40,7 @@ export default function Appointment(props) {
       .catch(error => transition(ERROR_SAVE, true));
   }
 
+  //console.log("props.interview.interviewer.name", props.interview.interviewer.name)
 
   function deleteInterview(name, interviewer) {
     const interview = {
@@ -89,7 +90,7 @@ export default function Appointment(props) {
         <Error
           message={"Could not save appointment"}
           onClose={() =>
-            transition(EMPTY, true)}
+            transition(CREATE, true)}
         />
       )}
 
@@ -103,7 +104,7 @@ export default function Appointment(props) {
         <Error
           message={"Could not delete appointment"}
           onClose={() =>
-            transition(SHOW, true)}
+            transition(CREATE, true)}
         />
       )}
 
@@ -120,9 +121,9 @@ export default function Appointment(props) {
         <Form
           interviewers={props.interviewers}
           student={props.interview.student}
-          interviewer={props.interview.interviewer.name}
+          interviewer={props.interview.interviewer.id}
           onCancel={() =>
-            transition(EMPTY)}
+            transition(SHOW)}
           onSave={save}
           edit={"true"}
         />
