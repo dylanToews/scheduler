@@ -40,7 +40,6 @@ export default function Appointment(props) {
       .catch(error => transition(ERROR_SAVE, true));
   }
 
-  //console.log("props.interview.interviewer.name", props.interview.interviewer.name)
 
   function deleteInterview(name, interviewer) {
     const interview = {
@@ -104,7 +103,7 @@ export default function Appointment(props) {
         <Error
           message={"Could not delete appointment"}
           onClose={() =>
-            transition(CREATE, true)}
+            transition(EDIT, true)}
         />
       )}
 
